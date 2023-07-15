@@ -1,0 +1,3 @@
+name: MPKBukkitAPI
+version: '${project.version}'
+main: io.github.kurrycat2004.mpkbukkitapi.MPKApiPlugin
