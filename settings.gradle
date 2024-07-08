@@ -1,0 +1,3 @@
+rootProject.name = 'MPK Network API'
+
+include ':common', ':bukkit'

@@ -1,0 +1,12 @@
+configure(
+        subprojects.findAll {
+            it.parent == rootProject
+        }
+) {
+    project.afterEvaluate {
+        jar {
+            destinationDirectory = file "${rootProject.buildDir}/libs"
+            archivesBaseName = "mpknetworkapi-" + project.archivesBaseName
+        }
+    }
+}
