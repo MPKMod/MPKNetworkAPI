@@ -3,10 +3,18 @@ configure(
             it.parent == rootProject
         }
 ) {
+    configurations {
+        library
+        implementation.extendsFrom library
+    }
+
     project.afterEvaluate {
         jar {
             destinationDirectory = file "${rootProject.buildDir}/libs"
-            archivesBaseName = "mpknetworkapi-" + project.archivesBaseName
+            archivesBaseName = "mpknetapi-" + project.archivesBaseName
+            from {
+                configurations.library.collect { it.isDirectory() ? it : zipTree(it) }
+            }
         }
     }
 }

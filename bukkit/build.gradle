@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'io.github.kurrycat2004.mpknetworkapi'
+group = 'io.github.kurrycat2004.mpknetapi'
 version = $version
 archivesBaseName = 'bukkit'
 
@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
-    implementation project(':common')
+    library project(':common')
 }
 
 processResources {

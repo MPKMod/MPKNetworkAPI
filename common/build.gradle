@@ -2,9 +2,12 @@ plugins {
     id 'java'
 }
 
-group = 'io.github.kurrycat2004.mpknetworkapi'
+group = 'io.github.kurrycat2004.mpknetapi'
 version = $version
 archivesBaseName = 'common'
+
+sourceCompatibility = 8
+targetCompatibility = 8
 
 repositories {
     mavenCentral()

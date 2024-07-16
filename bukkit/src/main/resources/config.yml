@@ -1,0 +1,5 @@
+# Whether MPK Mod 2 is a requirement for the server.
+# If the user doesn't have the mod (or it is very outdated), they will be kicked.
+kick:
+  enabled: false
+  message: '&cThis server requires MPK Mod 2 to join!\n&7You can get it at &ehttps://github.com/kurrycat2004/MPKMod_2&7.'
