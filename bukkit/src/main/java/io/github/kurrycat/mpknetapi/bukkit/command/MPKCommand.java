@@ -1,6 +1,5 @@
 package io.github.kurrycat.mpknetapi.bukkit.command;
 
-import io.github.kurrycat.mpknetapi.bukkit.MPKApiPlugin;
 import io.github.kurrycat.mpknetapi.bukkit.network.MPKPacketManager;
 import io.github.kurrycat.mpknetapi.common.MPKNetworking;
 import org.bukkit.Bukkit;
@@ -16,8 +15,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class MPKCommand implements CommandExecutor, TabExecutor {
-    private final MPKApiPlugin plugin = MPKApiPlugin.getInstance();
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender.hasPermission("mpknetapi.bukkit.command") || sender.isOp())) {
