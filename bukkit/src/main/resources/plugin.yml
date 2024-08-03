@@ -1,6 +1,6 @@
 name: MPKBukkitAPI
 version: ${version}
-main: io.github.kurrycat2004.mpknetapi.bukkit.MPKApiPlugin
+main: io.github.kurrycat.mpknetapi.bukkit.MPKApiPlugin
 authors: ['devcody']
 commands:
   mpk:
