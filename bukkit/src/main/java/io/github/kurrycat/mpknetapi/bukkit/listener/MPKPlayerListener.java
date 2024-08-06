@@ -26,8 +26,6 @@ public class MPKPlayerListener implements Listener {
         }
 
         UUID uuid = event.getPlayer().getUniqueId();
-        net.getMpkPlayers().putIfAbsent(uuid, null);
-
         if (net.getPacketQueue().containsKey(uuid)) {
             net.getPacketQueue().get(uuid).forEach(packet -> MPKPacketManager.sendPacket(event.getPlayer(), packet));
         }

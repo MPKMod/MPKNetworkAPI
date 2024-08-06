@@ -20,6 +20,8 @@ public class MPKPacketListenerServerImpl implements MPKPacketListenerServer {
         MPKServerPlayer mpkPlayer = new MPKServerPlayer(uuid, packet.getLoadedModules());
         net.getMpkPlayers().put(uuid, mpkPlayer);
         Bukkit.getServer().getPluginManager().callEvent(new MPKPlayerRegisterEvent(mpkPlayer));
+
+        System.out.println("client of uuid " + uuid + " registered");
     }
 
     @Override
