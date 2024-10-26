@@ -1,7 +1,8 @@
 package io.github.kurrycat.mpknetapi.bukkit.command;
 
+import io.github.kurrycat.mpknetapi.bukkit.MPKApiPlugin;
 import io.github.kurrycat.mpknetapi.bukkit.network.MPKPacketManager;
-import io.github.kurrycat.mpknetapi.common.MPKNetworking;
+import io.github.kurrycat.mpknetapi.bukkit.MPKServerPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -12,6 +13,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class MPKCommand implements CommandExecutor, TabExecutor {
@@ -33,10 +35,11 @@ public class MPKCommand implements CommandExecutor, TabExecutor {
             return true;
         }
 
+        Map<UUID, MPKServerPlayer> mpkPlayers = MPKApiPlugin.getInstance().getMpkPlayers();
         switch (args[0].toLowerCase()) {
             case "list": {
                 sendColoredMessages(sender, "&cMPK &8> &7Players:");
-                for (UUID uuid : MPKNetworking.INSTANCE.getMpkPlayers().keySet()) {
+                for (UUID uuid : mpkPlayers.keySet()) {
                     sendColoredMessages(sender, "&8 - &7" + Bukkit.getServer().getPlayer(uuid).getName());
                 }
                 break;
@@ -44,13 +47,13 @@ public class MPKCommand implements CommandExecutor, TabExecutor {
 
             case "check": {
                 if (args.length < 2) {
-                    sendColoredMessages(sender, "&cMPK &8> &4Invalid argument count! Usage: /mpk check <username>");
+                    sendColoredMessages(sender, "&6MPK &8> &4Invalid argument count! Usage: /mpk check <username>");
                     break;
                 }
 
                 Player p = Bukkit.getPlayer(args[1]);
                 if (p == null) {
-                    sendColoredMessages(sender, "&cMPK &8> &4Player not found!");
+                    sendColoredMessages(sender, "&6MPK &8> &4Player not found!");
                     break;
                 }
 
@@ -59,14 +62,25 @@ public class MPKCommand implements CommandExecutor, TabExecutor {
                     break;
                 }
 
-                List<String> loadedModules = MPKNetworking.INSTANCE.getMpkPlayers().get(p.getUniqueId()).loadedModules;
+                MPKServerPlayer mpkPlayer = mpkPlayers.get(p.getUniqueId());
+                List<String> loadedModules = mpkPlayer.getModules();
                 sendColoredMessages(sender,
-                        "&cMPK &8> &7" + args[1] + " &ais &7using MPK Mod!",
+                        "&6MPK &8> &7" + args[1] + " &ais &7using MPK Mod!",
                         loadedModules.isEmpty() ? "&7No modules loaded." : "&7Modules loaded (&a" + loadedModules.size() + "&7):"
                 );
 
                 for (String module : loadedModules) {
-                    sendColoredMessages(sender, "&7 - &a" + module);
+                    String color = mpkPlayer.getNonCompliantModules().contains(module) ? "&c" : "&a";
+                    sendColoredMessages(sender, "  &7 - " + color + module);
+                }
+
+                List<String> disabledModules = mpkPlayer.getDisabledModules();
+                sendColoredMessages(sender,
+                        disabledModules.isEmpty() ? "&7No disabled modules." : "&7Modules disabled (&8" + disabledModules.size() + "&7):"
+                );
+
+                for (String module : disabledModules) {
+                    sendColoredMessages(sender, "  &7 - &8" + module);
                 }
 
                 break;
@@ -85,23 +99,26 @@ public class MPKCommand implements CommandExecutor, TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> toReturn = new ArrayList<>();
         if (!(sender.hasPermission("mpknetapi.bukkit.command") || sender.isOp())) {
-            return List.of();
+            return toReturn;
         }
 
         switch(args.length) {
             case 1:
-                return List.of("help", "list", "check");
+                toReturn.add("help");
+                toReturn.add("list");
+                toReturn.add("check");
+                break;
 
             case 2:
-                if (args[0].equalsIgnoreCase("check")) {
-                    List<String> players = new ArrayList<>();
-                    Bukkit.getOnlinePlayers().forEach(p -> players.add(p.getName()));
-                    return players;
-                }
-                break;
+                if (!args[0].equalsIgnoreCase("check")) break;
+
+                List<String> players = new ArrayList<>();
+                Bukkit.getOnlinePlayers().forEach(p -> players.add(p.getName()));
+                return players;
         }
 
-        return List.of();
+        return toReturn;
     }
 }

@@ -28,3 +28,10 @@ processResources {
         expand "version": project.version
     }
 }
+
+compileJava {
+    sourceCompatibility = 8
+    targetCompatibility = 8
+
+    options.compilerArgs += ["-Xlint:-deprecation"]
+}

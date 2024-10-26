@@ -2,6 +2,16 @@ name: MPKBukkitAPI
 version: ${version}
 main: io.github.kurrycat.mpknetapi.bukkit.MPKApiPlugin
 authors: ['devcody']
+permissions:
+    mpknetapi.bukkit.command:
+      description: Permission to use the command (and all subcommands) of the MPK Bukkit plugin
+      default: op
+    mpknetapi.bukkit.notify:
+      description: Permission to receive notifications about players who failed the module compliance check
+      default: op
+    mpknetapi.bukkit.fail.bypass:
+      description: Permission to bypass the module compliance check
+      default: false
 commands:
   mpk:
     description: Main command for the MPK Bukkit plugin

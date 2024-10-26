@@ -1,6 +1,6 @@
 package io.github.kurrycat.mpknetapi.bukkit.event;
 
-import io.github.kurrycat.mpknetapi.common.MPKServerPlayer;
+import io.github.kurrycat.mpknetapi.bukkit.MPKServerPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;

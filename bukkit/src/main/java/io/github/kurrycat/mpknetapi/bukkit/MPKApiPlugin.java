@@ -11,15 +11,25 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.Messenger;
 
-public final class MPKApiPlugin extends JavaPlugin {
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.logging.Logger;
+
+public class MPKApiPlugin extends JavaPlugin {
+    public static final Logger LOGGER = Logger.getLogger("MPKBukkitAPI");
     private static MPKApiPlugin instance;
+    private final Map<UUID, MPKServerPlayer> mpkPlayers = new HashMap<>();
 
     private final MPKPacketListener packetListener = new MPKPacketListenerServerImpl();
     private Messenger messenger;
 
+    private ModuleConfig config;
+
     @Override
     public void onEnable() {
         instance = this;
+        MPKPacketListenerServerImpl.setPlugin(this);
         saveDefaultConfig();
 
         MPKCommand command = new MPKCommand();
@@ -42,6 +52,8 @@ public final class MPKApiPlugin extends JavaPlugin {
         }));
 
         this.getServer().getPluginManager().registerEvents(new MPKPlayerListener(), this);
+
+        this.config = new ModuleConfig(this.getConfig());
     }
 
     @Override
@@ -52,5 +64,13 @@ public final class MPKApiPlugin extends JavaPlugin {
 
     public static MPKApiPlugin getInstance() {
         return instance;
+    }
+
+    public Map<UUID, MPKServerPlayer> getMpkPlayers() {
+        return mpkPlayers;
+    }
+
+    public ModuleConfig getModuleConfig() {
+        return config;
     }
 }

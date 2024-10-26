@@ -1,10 +1,11 @@
 package io.github.kurrycat.mpknetapi.common.network.packet;
 
 import io.github.kurrycat.mpknetapi.common.network.packet.impl.MPKPacketListener;
-import io.github.kurrycat.mpknetapi.common.network.packet.impl.clientbound.MPKPacketModuleWhitelist;
 import io.github.kurrycat.mpknetapi.common.network.MPKByteBuf;
-import io.github.kurrycat.mpknetapi.common.network.packet.impl.clientbound.MPKPacketModuleBlacklist;
+import io.github.kurrycat.mpknetapi.common.network.packet.impl.clientbound.MPKPacketDisableModules;
+import io.github.kurrycat.mpknetapi.common.network.packet.impl.serverbound.MPKPacketModuleUpdate;
 import io.github.kurrycat.mpknetapi.common.network.packet.impl.serverbound.MPKPacketRegister;
+import io.github.kurrycat.mpknetapi.common.network.packet.impl.shared.MPKPacketModuleMessage;
 import io.netty.buffer.Unpooled;
 
 import java.util.HashMap;
@@ -72,7 +73,8 @@ public abstract class MPKPacket {
 
     static {
         register(0, MPKPacketRegister.class);
-        register(1, MPKPacketModuleBlacklist.class);
-        register(2, MPKPacketModuleWhitelist.class);
+        register(1, MPKPacketDisableModules.class);
+        register(2, MPKPacketModuleUpdate.class);
+        register(3, MPKPacketModuleMessage.class);
     }
 }

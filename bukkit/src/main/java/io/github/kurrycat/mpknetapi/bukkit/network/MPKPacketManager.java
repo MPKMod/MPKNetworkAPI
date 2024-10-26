@@ -9,10 +9,14 @@ import org.bukkit.entity.Player;
 
 @SuppressWarnings("all")
 public class MPKPacketManager {
-    private static final MPKNetworking net = MPKNetworking.INSTANCE;
+    private static final MPKApiPlugin plugin = MPKApiPlugin.getInstance();
 
     public static boolean sendPacket(Player player, MPKPacket packet) {
-        if (!isMpkPlayer(player)) {
+        return sendPacket(player, packet, false);
+    }
+
+    public static boolean sendPacket(Player player, MPKPacket packet, boolean force) {
+        if (!force && !isMpkPlayer(player)) {
             return false;
         }
 
@@ -28,6 +32,6 @@ public class MPKPacketManager {
     }
 
     public static boolean isMpkPlayer(Player player) {
-        return net.getMpkPlayers().containsKey(player.getUniqueId());
+        return plugin.getMpkPlayers().containsKey(player.getUniqueId());
     }
 }
