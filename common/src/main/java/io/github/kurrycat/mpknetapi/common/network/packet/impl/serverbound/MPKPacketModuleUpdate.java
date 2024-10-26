@@ -6,11 +6,7 @@ import io.github.kurrycat.mpknetapi.common.network.MPKByteBuf;
 
 import java.util.List;
 
-/**
- * Packet sent by the client after it has adjusted to the blacklist/whitelist.<br>
- * The server should kick the client if it still has disallowed modules<br>
- * or had them before and didn't update in 20 ticks.
- */
+@SuppressWarnings("unused")
 public class MPKPacketModuleUpdate extends MPKPacket {
     private List<String> newModules;
 

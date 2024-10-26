@@ -6,6 +6,7 @@ import io.github.kurrycat.mpknetapi.common.network.MPKByteBuf;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class MPKPacketRegister extends MPKPacket {
     private String modVersion;
     private List<String> loadedModules;
