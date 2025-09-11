@@ -3,6 +3,7 @@ package io.github.kurrycat.mpknetapi.common.network.packet;
 import io.github.kurrycat.mpknetapi.common.network.packet.impl.MPKPacketListener;
 import io.github.kurrycat.mpknetapi.common.network.MPKByteBuf;
 import io.github.kurrycat.mpknetapi.common.network.packet.impl.clientbound.MPKPacketDisableModules;
+import io.github.kurrycat.mpknetapi.common.network.packet.impl.clientbound.MPKPacketSetLandingBlock;
 import io.github.kurrycat.mpknetapi.common.network.packet.impl.serverbound.MPKPacketModuleUpdate;
 import io.github.kurrycat.mpknetapi.common.network.packet.impl.serverbound.MPKPacketRegister;
 import io.github.kurrycat.mpknetapi.common.network.packet.impl.shared.MPKPacketModuleMessage;
@@ -76,5 +77,6 @@ public abstract class MPKPacket {
         register(1, MPKPacketDisableModules.class);
         register(2, MPKPacketModuleUpdate.class);
         register(3, MPKPacketModuleMessage.class);
+        register(4, MPKPacketSetLandingBlock.class);
     }
 }
