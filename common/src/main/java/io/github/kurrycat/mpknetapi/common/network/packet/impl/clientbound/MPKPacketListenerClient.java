@@ -7,4 +7,6 @@ import io.github.kurrycat.mpknetapi.common.network.packet.impl.MPKPacketListener
  */
 public interface MPKPacketListenerClient extends MPKPacketListener {
     void handleDisableModules(MPKPacketDisableModules packet);
+
+    void handleSetLandingBlock(MPKPacketSetLandingBlock packet);
 }
