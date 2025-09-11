@@ -9,6 +9,13 @@ A network API for MPK Mod 2.
 This project is available on jitpack
 ```
 dependencies {
-    implementation 'com.github.MPKMod.MPKNetworkAPI:common:main-SNAPSHOT'
+    implementation 'com.github.MPKMod.MPKNetworkAPI:common:1.0.0'
+}
+```
+
+For server owners:
+```
+dependencies {
+    implementation 'com.github.MPKMod.MPKNetworkAPI:bukkit:1.0.0'
 }
 ```
