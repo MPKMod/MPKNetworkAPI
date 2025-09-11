@@ -2,6 +2,7 @@ package io.github.kurrycat.mpknetapi.bukkit;
 
 import io.github.kurrycat.mpknetapi.bukkit.network.MPKPacketManager;
 import io.github.kurrycat.mpknetapi.common.network.packet.impl.clientbound.MPKPacketDisableModules;
+import io.github.kurrycat.mpknetapi.common.network.packet.impl.clientbound.MPKPacketSetLandingBlock;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -106,5 +107,12 @@ public class MPKServerPlayer {
 
     public List<String> getNonCompliantModules() {
         return config.getIncompliantModules(getModules());
+    }
+
+    public void sendLandingBlock(int x, int y, int z) {
+        Player player = Bukkit.getPlayer(uuid);
+        if (player != null && player.isOnline()) {
+            MPKPacketManager.sendPacket(player, new MPKPacketSetLandingBlock(x, y, z));
+        }
     }
 }

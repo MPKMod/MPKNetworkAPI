@@ -7,6 +7,7 @@ import io.github.kurrycat.mpknetapi.common.network.packet.impl.MPKPacketListener
 public class MPKPacketSetLandingBlock extends MPKPacket {
 
     private int x, y, z;
+    private LandingMode landingMode;
 
     public MPKPacketSetLandingBlock() {
     }
@@ -15,6 +16,14 @@ public class MPKPacketSetLandingBlock extends MPKPacket {
         this.x = x;
         this.y = y;
         this.z = z;
+        this.landingMode = LandingMode.LAND;
+    }
+
+    public MPKPacketSetLandingBlock(int x, int y, int z, LandingMode landingMode) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.landingMode = landingMode;
     }
 
     @Override
@@ -22,6 +31,7 @@ public class MPKPacketSetLandingBlock extends MPKPacket {
         this.x = buf.readVarInt();
         this.y = buf.readVarInt();
         this.z = buf.readVarInt();
+        this.landingMode = LandingMode.values()[buf.readVarInt()];
     }
 
     @Override
@@ -29,6 +39,7 @@ public class MPKPacketSetLandingBlock extends MPKPacket {
         buf.writeVarInt(this.x);
         buf.writeVarInt(this.y);
         buf.writeVarInt(this.z);
+        buf.writeVarInt(this.landingMode.ordinal());
     }
 
     @Override
@@ -46,6 +57,21 @@ public class MPKPacketSetLandingBlock extends MPKPacket {
 
     public int getZ() {
         return z;
+    }
+
+    public LandingMode getLandingMode() {
+        return landingMode;
+    }
+
+    public int getLandingModeId() {
+        return landingMode.ordinal();
+    }
+
+    public enum LandingMode {
+        LAND,
+        HIT,
+        Z_NEO,
+        ENTER
     }
 
 }
